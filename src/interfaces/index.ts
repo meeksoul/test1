@@ -1,5 +1,5 @@
 interface RequestBody {
-	start_day_identifier: string
+    start_day_identifier: string
 	timezone_identifier: string
 	service_duration: number
 	days: number

@@ -58,7 +58,7 @@ export default class DateTimetableController {
             
                 dateTimeTables.push({
                     start_of_day: startOfDay,
-                    day_modifier: days,
+                    day_modifier: 0 + i,
                     is_day_off: workHour? workHour.is_day_off : true,
                     timeslots
                 })
