@@ -22,7 +22,7 @@ export default class DateTimetableController {
             } = body;
         
             //if timeslot_interval is not provided, set it to 30 minutes
-            const slot_interval = timeslot_interval || 30;
+            const slot_interval = timeslot_interval || 30 * 60;
         
             /*
             step1 - `start_day_identifier,` `timezone_identifier`, `service_duration`, `days`,`timeslot_interval`
@@ -42,6 +42,7 @@ export default class DateTimetableController {
                 
                 //start seconds of the day
                 const startOfDay = (date.getTime()/1000 + i * 86400) - (date.getTime() / 1000 + i * 86400) % 86400
+                
                 //end seconds of the day
                 const endOfDay = startOfDay + 86400;
                 
@@ -51,7 +52,7 @@ export default class DateTimetableController {
                 //repeat as much as the day
                 while (timeOfDay < endOfDay) {
                     const begin_at = timeOfDay;
-                    const end_at = timeOfDay + slot_interval * 60;
+                    const end_at = timeOfDay + slot_interval;
                     timeslots.push({ begin_at, end_at });
                     timeOfDay = end_at;
                 }

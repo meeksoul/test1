@@ -8,7 +8,7 @@
 4. npm i -D nodemon ts-node concurrently
 5. npm install
 6. ts-node index 
-7. http://localhost:3000/getTimeSlots 에 요청을 넣어 테스트해주세요
+7. 포스트맨에서 http://localhost:3000/getTimeSlots 에 요청을 넣어 테스트해주세요
 예시 body 데이터는 다음과 같습니다
 
 #### Example Request
