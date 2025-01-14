@@ -2,15 +2,19 @@
 
 ## **Project Title**
 
-1. repo를 내려받으신 후 npm install을 실행해주세요
-2. ts-node index 
-3. http://localhost:3000/getTimeSlots 에 요청을 넣어 테스트해주세요
+1. repo를 폴더에 내려받아주세요
+2. 터미널에서 폴더로 이동
+3. npm i -D typescript @types/express @types/node
+4. npm i -D nodemon ts-node concurrently
+5. npm install
+6. ts-node index 
+7. http://localhost:3000/getTimeSlots 에 요청을 넣어 테스트해주세요
 예시 body 데이터는 다음과 같습니다
 
 #### Example Request
 ```json
 {
-  "start_day_identifier": "20230101",
+  "start_day_identifier": "20210509",
   "timezone_identifier": "Asia/Seoul",
   "service_duration": 3600,
   "days": 3,
