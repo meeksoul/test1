@@ -1,8 +1,6 @@
-
-// ** Module Imports
 import express from "express";
 import bodyParser from 'body-parser';
-import routes from "./routes/index";
+import routes from "./src/routes/index";
 import "reflect-metadata";
 
 
