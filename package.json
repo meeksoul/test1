@@ -10,9 +10,12 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "app-root-path": "^3.1.0",
     "body-parser": "^1.20.3",
     "express": "^4.21.2",
+    "fs": "^0.0.1-security",
     "moment-timezone": "^0.5.46",
+    "reflect-metadata": "^0.2.2",
     "typescript": "^5.7.3"
   },
   "devDependencies": {
