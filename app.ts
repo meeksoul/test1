@@ -1,8 +1,6 @@
 import express from "express";
 import bodyParser from 'body-parser';
 import routes from "./src/routes/index";
-import "reflect-metadata";
-
 
 export class App {
   public app: express.Application;
@@ -12,9 +10,6 @@ export class App {
     this.setMiddlewares();
   }
 
-  /**
-   * set the middleware
-   */
   private setMiddlewares(): void {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: false }));
@@ -24,9 +19,9 @@ export class App {
   }
 
   /**
-   * Express starts
-   * @param port port
-   */
+     * Express starts
+     * @param port port
+  */
   public async createExpressServer(port: number): Promise<void> {
     try {
       this.app.listen(port, "0.0.0.0", () => {
