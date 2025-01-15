@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import type { RequestBody, } from '../interfaces/request.interface'; 
 import type { DayTimetable, Timeslot, WorkHour, Event, } from '../interfaces/time.interface';
-import { identifierToDate, getDayOfWeek } from '../utils/date.util';
+import { identifierToDate, getDayOfWeek, getDaysFromNow } from '../utils/date.util';
 import workhours from '../datas/workhours.json';
 import events from '../datas/events.json';
 
@@ -13,12 +13,13 @@ export default class DateTimetableController {
                 start_day_identifier,
                 timezone_identifier,
                 service_duration,
-                days,
+                days = 1,
                 timeslot_interval = 30 * 60,
-                is_ignore_schedule,
-                is_ignore_workhour,
+                is_ignore_schedule = false,
+                is_ignore_workhour = false,
             } = body;
 
+            
             console.log('step1 started');
             const dateTimeTables: DayTimetable[] = [];
             const utcDate = identifierToDate(start_day_identifier, timezone_identifier);
@@ -32,6 +33,8 @@ export default class DateTimetableController {
 
                 const startOfDay = utcDate.getTime() / 1000 + i * 86400;
                 const endOfDay = startOfDay + 86400;
+
+                const day_modifier = getDaysFromNow(startOfDay);
 
                 let timeOfDay = startOfDay;
                 let timeslots: Timeslot[] = [];
@@ -50,7 +53,7 @@ export default class DateTimetableController {
 
                 dateTimeTables.push({
                     start_of_day: startOfDay,
-                    day_modifier: 0 + i,
+                    day_modifier,
                     is_day_off: workHour ? workHour.is_day_off : true,
                     timeslots,
                 });
@@ -84,7 +87,7 @@ export default class DateTimetableController {
                         if (workHour) {
                             return (
                                 timeslot.begin_at - dayTimetable.start_of_day >= workHour.open_interval &&
-                                timeslot.end_at - dayTimetable.start_of_day < workHour.close_interval
+                                timeslot.end_at - dayTimetable.start_of_day <= workHour.close_interval
                             );
                         } else {
                             return false;
@@ -96,6 +99,7 @@ export default class DateTimetableController {
             console.log( 'dateTimeTables after step3', dateTimeTables[0].timeslots.length, );
             res.json(dateTimeTables);
         } catch (err) {
+            console.log(err);
             res.status(500).json({
                 message: 'Internal Server Error!',
             });
